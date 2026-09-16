@@ -1,16 +1,16 @@
 # AuditFixers Web App
 
-This project is a frontend application built with Angular and powered by a modern Node.js environment.
+This project started as a side hustle built in spare time to solve a real-world problem and turn it into something useful. It is a frontend application built with Angular.
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Angular CLI**: 21.1.4
-* **Node.js**: 22.14.0
-* **npm**: 11.6.0
-* **Build Tooling**: Vite (via Angular Dev Server)
-* **Testing**: Vitest
+- **Angular CLI**: 21.1.4
+- **Node.js**: 22.14.0
+- **npm**: 11.6.0
+- **Build Tooling**: Vite (via Angular Dev Server)
+- **Testing**: Vitest
 
 ---
 
@@ -136,9 +136,9 @@ src/
 
 ## ⚠️ Notes
 
-* Ensure compatibility between Angular CLI and Node.js version.
-* If you encounter Vite-related errors (ESM issues), verify dependency versions or downgrade Vite if necessary.
-* Always delete `node_modules` and reinstall if build issues occur:
+- Ensure compatibility between Angular CLI and Node.js version.
+- If you encounter Vite-related errors (ESM issues), verify dependency versions or downgrade Vite if necessary.
+- Always delete `node_modules` and reinstall if build issues occur:
 
 ```bash
 rm -rf node_modules package-lock.json
@@ -149,14 +149,14 @@ npm install
 
 ## 📚 Resources
 
-* Angular CLI Docs: https://angular.dev/tools/cli
-* Node.js Docs: https://nodejs.org/
-* npm Docs: https://docs.npmjs.com/
+- Angular CLI Docs: https://angular.dev/tools/cli
+- Node.js Docs: https://nodejs.org/
+- npm Docs: https://docs.npmjs.com/
 
 ---
 
 ## 👨‍💻 Author
 
-Developed and maintained by your team.
+Built as a side project and released for users to access.
 
 ---
