@@ -1,0 +1,114 @@
+<!-- HERO / TITLE -->
+<section class="bg-white py-16">
+  <div class="max-w-6xl mx-auto px-6 space-y-4">
+    <h1 class="text-4xl font-bold text-gray-900">Get in Touch with AuditFixers</h1>
+    <div class="space-y-1">
+      <p class="text-lg text-gray-600">
+        Need help with ISO 27001 compliance, certification readiness, or gap checks?
+      </p>
+      <p class="text-lg text-gray-600">Our team is here to help.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="bg-white py-16">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <!-- IMAGE -->
+      <div>
+        <img
+          src="assets/contact_us_image.png"
+          alt="Contact Us"
+          class="w-full h-auto object-contain"
+        />
+      </div>
+
+      <!-- FORM -->
+      <div>
+        <form class="space-y-6" (ngSubmit)="onSubmit()" #contactForm="ngForm">
+          <!-- Name -->
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1"> Full Name </label>
+            <input
+              type="text"
+              name="name"
+              [(ngModel)]="formData.name"
+              required
+              placeholder="Your Full Name"
+              class="w-full border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1"> Email Address </label>
+            <input
+              type="email"
+              name="email"
+              [(ngModel)]="formData.email"
+              required
+              placeholder="you@example.com"
+              class="w-full border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1"> Message </label>
+            <textarea
+              name="message"
+              rows="5"
+              [(ngModel)]="formData.message"
+              required
+              placeholder="Tell us how we can help"
+              class="w-full border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            ></textarea>
+          </div>
+
+          <!-- Button -->
+          <button
+            type="submit"
+            [disabled]="loading"
+            class="bg-blue-600 text-white px-7 py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-60 w-full"
+          >
+            {{ loading ? 'Sending...' : 'Send Message' }}
+          </button>
+
+          <!-- SUCCESS MESSAGE -->
+          <div *ngIf="success" class="p-4 bg-green-100 text-green-700 rounded-lg">
+            ✅ Your message has been sent successfully! We’ll get back to you shortly.
+          </div>
+
+          <!-- ERROR MESSAGE -->
+          <div *ngIf="error" class="p-4 bg-red-100 text-red-700 rounded-lg">
+            ❌ Something went wrong. Please try again.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT DETAILS -->
+<section class="bg-gray-50 py-12">
+  <div class="max-w-3xl mx-auto px-6 space-y-8 text-center text-gray-700">
+    <p class="text-lg">You can also reach us directly via email or phone.</p>
+
+    <div class="space-y-4">
+      <p class="font-semibold text-gray-800">
+        Email:
+        <a href="mailto:hello@auditfixers.com" class="text-blue-600 hover:underline">
+          email_address@gmail.com
+        </a>
+      </p>
+
+      <p class="font-semibold text-gray-800">
+        Phone:
+        <a href="tel:+442033718316" class="text-blue-600 hover:underline"> +000000000 </a>
+      </p>
+
+      <p class="font-semibold text-gray-800">Address: Address Here</p>
+    </div>
+  </div>
+</section>

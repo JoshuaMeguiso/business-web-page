@@ -1,0 +1,206 @@
+<div class="min-h-screen bg-gradient-to-br from-blue-300 via-white-200 to-white-100">
+  <!-- Navbar -->
+  <nav class="top-0 w-full z-50">
+    <div class="max-w-6xl mx-auto px-6 py-6 flex items-center">
+      <!-- Brand -->
+      <div class="cursor-pointer" routerLink="">
+        <img src="assets/logo.png" alt="AuditFixers Logo" class="h-20 w-auto" />
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div *ngIf="!formSubmitted" class="flex flex-col justify-start items-center pb-12 px-6">
+    <!-- reduced pt-16 → pt-8 -->
+    <!-- Form Card -->
+    <form
+      class="w-full max-w-4xl mx-auto bg-white/90 p-8 rounded-2xl shadow-xl backdrop-blur-sm"
+      (ngSubmit)="submitForm()"
+    >
+      <h1 class="text-3xl font-bold mb-2 text-gray-900 text-center">Gap Check</h1>
+      <p class="text-sm text-gray-600 mb-6 text-center">
+        Complete this assessment to understand your organization’s security posture.
+      </p>
+
+      <!-- Stepper -->
+      <div class="w-full mb-8">
+        <div class="relative max-w-4xl mx-auto">
+          <!-- Background Line -->
+          <div class="absolute top-3 left-0 right-0 h-[2px] bg-gray-300 -z-0"></div>
+
+          <!-- Active Progress Line -->
+          <div
+            class="absolute top-3 left-0 h-[2px] bg-blue-600 transition-all z-10"
+            [style.width.%]="(currentStep / (questions.length - 1)) * 100"
+          ></div>
+
+          <!-- Steps -->
+          <div
+            class="grid text-center relative"
+            [ngStyle]="{
+              'grid-template-columns': 'repeat(' + questions.length + ', minmax(0, 1fr))',
+            }"
+          >
+            <ng-container *ngFor="let section of questions; let i = index">
+              <div class="flex flex-col items-center cursor-pointer" (click)="currentStep = i">
+                <!-- Circle -->
+                <div
+                  class="w-7 h-7 rounded-full flex items-center justify-center text-xs border-2 transition-all relative z-20"
+                  [ngClass]="{
+                    'bg-blue-500 border-blue-500 text-gray-100': i < currentStep,
+                    'bg-blue-600 border-blue-600 text-white': i === currentStep,
+                    'bg-white border-gray-300 text-gray-400': i > currentStep,
+                  }"
+                >
+                  {{ i + 1 }}
+                </div>
+
+                <!-- Label -->
+                <div
+                  class="text-[11px] mt-2 leading-tight px-1"
+                  [ngClass]="{
+                    'text-blue-600 font-semibold': i === currentStep,
+                    'text-gray-500': i !== currentStep,
+                  }"
+                >
+                  {{ section.title }}
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="questions[currentStep].questions.length > 0">
+        <fieldset class="mb-6">
+          <legend class="text-base font-semibold mb-2 text-gray-800">
+            {{ questions[currentStep].title }}
+          </legend>
+
+          <div class="flex flex-col gap-3">
+            <ng-container *ngFor="let q of questions[currentStep].questions">
+              <!-- Radio -->
+              <div *ngIf="q.type === 'radio'" class="flex flex-col">
+                <label class="text-sm text-gray-700 mb-1">{{ q.label }}</label>
+
+                <div class="flex flex-col gap-2">
+                  <label
+                    *ngFor="let opt of q.options"
+                    class="inline-flex items-center gap-3 text-gray-700 text-sm"
+                  >
+                    <input
+                      type="radio"
+                      [(ngModel)]="q.value"
+                      [value]="opt"
+                      name="{{ q.id }}"
+                      class="form-radio h-4 w-4 text-blue-600"
+                    />
+                    {{ opt }}
+                  </label>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </fieldset>
+      </div>
+
+      <div *ngIf="questions[currentStep].questions.length === 0">
+        <h2 class="text-lg font-semibold text-gray-800 mb-6">ISO 27001 Gap Analysis Summary</h2>
+
+        <div *ngFor="let section of questions">
+          <div *ngIf="section.questions.length">
+            <!-- Clause Header -->
+            <div class="flex justify-between items-center pt-4 mt-4">
+              <h3 class="text-sm font-semibold text-blue-700">
+                {{ section.title }}
+              </h3>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto mt-3">
+              <table class="w-full text-sm border border-gray-200 rounded-lg">
+                <thead class="bg-gray-100">
+                  <tr>
+                    <th class="p-2 text-left border-b">Questions</th>
+                    <th class="p-2 text-center border-b w-28">Answer</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let q of section.questions" class="border-b">
+                    <td class="p-2 text-gray-700">
+                      {{ q.label }}
+                    </td>
+
+                    <td class="p-2 font-medium text-center">
+                      <span
+                        [ngClass]="{
+                          'text-green-600': q.value === 'Yes',
+                          'text-yellow-600': q.value === 'Partial',
+                          'text-red-600': q.value === 'No',
+                        }"
+                      >
+                        {{ q.value || '-' }}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="flex justify-between mt-6 text-sm">
+        <!-- smaller font -->
+        <!-- Previous -->
+        <button
+          type="button"
+          class="flex items-center text-blue-600 font-semibold hover:underline focus:outline-none cursor-pointer"
+          [disabled]="currentStep === 0"
+          (click)="prevStep()"
+        >
+          <span class="mr-1 text-base">&lt;</span> Previous
+        </button>
+
+        <!-- Next -->
+        <button
+          *ngIf="currentStep < questions.length - 1"
+          type="button"
+          class="flex items-center text-blue-600 font-semibold hover:underline focus:outline-none cursor-pointer"
+          (click)="nextStep()"
+        >
+          Next <span class="ml-1 text-base">&gt;</span>
+        </button>
+
+        <!-- Submit -->
+        <button
+          *ngIf="currentStep === questions.length - 1"
+          type="submit"
+          class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition-all font-semibold focus:outline-none cursor-pointer"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div
+    *ngIf="formSubmitted"
+    class="w-full max-w-2xl mx-auto bg-white p-10 rounded-2xl shadow-xl text-center"
+  >
+    <div class="text-green-600 text-5xl mb-4">✓</div>
+
+    <h2 class="text-2xl font-bold text-gray-800 mb-2">Assessment Submitted</h2>
+
+    <p class="text-gray-600 mb-6">
+      Thank you for completing the ISO 27001 Gap Assessment. Your responses have been successfully
+      recorded.
+    </p>
+
+    <button routerLink="" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+      Return Home
+    </button>
+  </div>
+</div>

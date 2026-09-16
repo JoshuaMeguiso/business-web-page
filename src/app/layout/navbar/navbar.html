@@ -1,0 +1,41 @@
+<nav class="top-0 z-50 bg-white border-b border-gray-100">
+  <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <!-- Brand -->
+    <div class="cursor-pointer" routerLink="">
+      <img src="assets/logo.jpeg" alt="AuditFixers Logo" class="h-20 w-auto" />
+    </div>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex items-center gap-10 text-base text-gray-600">
+      <a routerLink="/" class="hover:text-black transition"> Home </a>
+
+      <a
+        routerLink="/who-we-are"
+        routerLinkActive="text-black font-semibold"
+        class="hover:text-black transition"
+      >
+        About Us
+      </a>
+
+      <a
+        routerLink="/pricing"
+        routerLinkActive="text-black font-semibold"
+        class="hover:text-black transition"
+      >
+        Pricing
+      </a>
+
+      <a routerLink="/contact-us" class="hover:text-black transition"> Contact Us </a>
+    </div>
+
+    <!-- CTA -->
+    <div class="hidden md:block">
+      <button
+        class="bg-blue-600 text-white px-7 py-3 text-base font-medium rounded-xl hover:bg-blue-700 transition shadow-md cursor-pointer"
+        routerLink="/gap-check"
+      >
+        Get Free Gap Check
+      </button>
+    </div>
+  </div>
+</nav>
